@@ -6,8 +6,6 @@
 
 include_recipe 'chef-vault'
 
-#aws = chef_vault_item('credentials', 'aws')
-
 aws = lambda do
   chef_vault_item('credentials', 'aws')
 end
