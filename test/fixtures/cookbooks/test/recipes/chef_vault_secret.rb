@@ -16,20 +16,21 @@
 #
 # This recipe is for testing the chef_vault_secret resource.
 
-execute('apt-get update').run_action(:run) if platform_family?('debian')
+#execute('apt-get update').run_action(:run) if platform_family?('debian')
+#
+#node.default['build-essential']['compile_time'] = true
+#include_recipe 'build-essential'
+#
+#package 'openssl-dev' do
+#  package_name case node['platform_family']
+#               when 'redhat', 'fedora'
+#                 'openssl-devel'
+#               when 'debian'
+#                 'libssl-dev'
+#               end
+#end.run_action(:install)
 
-node.default['build-essential']['compile_time'] = true
-include_recipe 'build-essential'
-
-package 'openssl-dev' do
-  package_name case node['platform_family']
-               when 'redhat', 'fedora'
-                 'openssl-devel'
-               when 'debian'
-                 'libssl-dev'
-               end
-end.run_action(:install)
-
+include_recipe 'chef-vault'
 chef_gem 'cheffish'
 
 require 'cheffish'
