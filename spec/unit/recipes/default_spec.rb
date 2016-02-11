@@ -14,7 +14,7 @@ describe 'vault-template::default' do
     end
 
     it 'converges successfully' do
-      expect { chef_run }.to_not raise_error
+      expect(chef_run).to_be
     end
   end
 end
