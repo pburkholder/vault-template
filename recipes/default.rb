@@ -6,7 +6,8 @@
 
 include_recipe 'chef-vault'
 
-aws = chef_vault_item('credentials', 'aws')
+#aws = chef_vault_item('credentials', 'aws')
+aws = chef_vault_item('secrets', 'dbpassword')
 aws_secret_key = aws['aws_secret_key']
 aws_access_key = aws['aws_access_key']
 

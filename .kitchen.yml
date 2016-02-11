@@ -4,11 +4,15 @@ driver:
 
 provisioner:
   name: chef_zero
+  nodes_path: test/fixtures/nodes
+  clients_path: test/fixtures/clients
+  environments_path: test/fixtures/environments
+  data_bags_path: test/fixtures/data_bags
+  client_rb:
+    environment: test
 
-# Uncomment the following verifier to leverage Inspec instead of Busser (the
-# default verifier)
-# verifier:
-#   name: inspec
+verifier:
+  name: inspec
 
 platforms:
   - name: ubuntu-14.04
@@ -17,5 +21,6 @@ platforms:
 suites:
   - name: default
     run_list:
+      - recipe[test]
       - recipe[vault-template::default]
     attributes:
