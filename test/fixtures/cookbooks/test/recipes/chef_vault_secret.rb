@@ -15,6 +15,7 @@
 # limitations under the License.
 #
 # This recipe is for testing the chef_vault_secret resource.
+
 execute('apt-get update').run_action(:run) if platform_family?('debian')
 
 node.default['build-essential']['compile_time'] = true
@@ -32,18 +33,18 @@ end.run_action(:install)
 chef_gem 'cheffish'
 
 require 'cheffish'
+chef_data_bag 'credentials'
 chef_data_bag 'green'
+
+chef_vault_secret 'aws' do
+  data_bag 'credentials'
+  raw_data('aws_access_key' => 'AKIAASFOISDNFALS')
+  admins ['hydroelectric', 'default-ubuntu-1404']
+end
 
 chef_vault_secret 'clean-energy' do
   data_bag 'green'
   raw_data('auth' => 'Forged in a mold')
   admins 'hydroelectric'
   search '*:*'
-end
-
-chef_vault_secret 'dirty-energy' do
-  environment '_default'
-  data_bag 'green'
-  raw_data('auth' => 'carbon-credits')
-  admins 'hydroelectric'
 end

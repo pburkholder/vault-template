@@ -21,6 +21,8 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[test]
+      - recipe[test::chef_vault_secret]
       - recipe[vault-template::default]
     attributes:
+      chef-vault:
+        databag_vault: false
