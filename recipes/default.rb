@@ -7,7 +7,13 @@
 include_recipe 'chef-vault'
 
 aws = lambda do
+  Chef::Log.warn("accessing aws lambda")
   chef_vault_item('credentials', 'aws')
+end
+
+new_sha = lambda do
+  Chef::Log.warn('in new_sha')
+  true
 end
 
 template '/etc/s3cfg' do
@@ -18,4 +24,5 @@ template '/etc/s3cfg' do
   variables lazy {
     { aws_access_key: aws.call['aws_access_key'] }
   }
+  only_if {new_sha.call()}
 end
